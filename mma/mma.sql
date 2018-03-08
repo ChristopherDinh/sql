@@ -5,12 +5,28 @@ USE mma;
 
 -- create the Product table
 CREATE TABLE Product (
-  ProductID      INT            PRIMARY KEY  AUTO_INCREMENT,
+  ID      INT            PRIMARY KEY  AUTO_INCREMENT,
   Code           VARCHAR(10)    NOT NULL     UNIQUE,
   Description    VARCHAR(255)   NOT NULL,
   ListPrice      DECIMAL(10,2)  NOT NULL
 );
 
+CREATE TABLE Invoice (
+	ID	int	primary key auto_increment,
+    OrderNumber	varchar(25)	not null unique,
+    CustomerName	varchar(50)	not null,
+    OrderDate	date	not null,
+    Total	decimal(10,2)	not null
+);
+CREATE TABLE LineItem (
+	ID	int	primary key	auto_increment,
+    InvoiceId	int not null,
+    ProductId	int	not null,
+    Quanity	int	not null,
+    FOREIGN KEY (InvoiceID) REFERENCES Invoice (ID),
+    FOREIGN KEY (ProductID) REFERENCES Product (ID)
+);
+    
 -- insert some rows into the Product table
 INSERT INTO Product VALUES
 (1, 'java', 'Murach''s Java Programming', '57.50'),
@@ -23,8 +39,4 @@ INSERT INTO Product VALUES
 (8, 'php', 'Murach''s PHP', '54.50'),
 (9, 'dummy', 'dummy', '10');
 
--- create a user and grant privileges to that user
-GRANT SELECT, INSERT, DELETE, UPDATE
-ON mma.*
-TO mma_user@localhost
-IDENTIFIED BY 'sesame';
+
