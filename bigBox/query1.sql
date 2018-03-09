@@ -14,3 +14,15 @@ where DivisionNumber = '001'
 and division.id = store.DivisionID
 and storesales.storeid = store.id;
 
+select distinct(storenumber) from store;
+
+select count(storenumber)
+from store;
+
+select storenumber
+from store
+having count(storenumber > 1);
+
+select * from store
+order by storename desc;
+
